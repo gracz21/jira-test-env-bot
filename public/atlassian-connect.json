@@ -1,0 +1,15 @@
+{
+  "key": "jira-test-env-dev",
+  "name": "App that adds testing environment to JIRA ticket after GitHub deploy",
+  "lifecycle": {
+    "installed": "/installed"
+  },
+  "baseUrl": "TBD",
+  "authentication": {
+    "type": "jwt"
+  },
+  "scopes": [
+    "read",
+    "write"
+  ]
+}
