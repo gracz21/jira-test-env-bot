@@ -11,10 +11,12 @@ module Github
     end
 
     def call
+      pr_status = determinate_pr_status
+
       {
-        pr_action: github_payload['action'],
+        pr_status: pr_status,
         issue_key: parse_issue_key,
-        testing_url_env: generate_testing_env_url
+        testing_url_env: generate_testing_env_url(pr_status: pr_status)
       }
     end
 
@@ -22,14 +24,22 @@ module Github
 
     attr_reader :github_payload
 
+    def determinate_pr_status
+      action = github_payload['action']
+      merged = github_payload['pull_request']['merged']
+
+      action == 'closed' && merged ? 'merged' : action
+    end
+
     def parse_issue_key
       github_payload['pull_request']['title'][ISSUE_NAME_REGEX]
     end
 
-    def generate_testing_env_url
+    def generate_testing_env_url(pr_status:)
       project_name = github_payload['repository']['name']
       pr_number = github_payload['number']
-      env = github_payload['action'] == 'closed' ? '.staging' : "-#{pr_number}.integration"
+      env = pr_status == 'merged' ? '.staging' : "-#{pr_number}.integration"
+
       "http://#{project_name}#{env}#{BASE_DOMAIN}"
     end
   end
