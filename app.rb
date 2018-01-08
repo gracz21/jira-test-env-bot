@@ -1,5 +1,6 @@
 ENV['RACK_ENV'] ||= 'development'
 
+require 'app_konfig'
 require 'atlassian/jwt'
 require 'json'
 require 'net/http'
