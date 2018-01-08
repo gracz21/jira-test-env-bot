@@ -24,10 +24,11 @@ module Jira
     end
 
     def update_issue(url:, jwt:)
-      uri = URI("#{url}?jwt=#{jwt}")
+      uri = URI(url)
       http = Net::HTTP.new(uri.host, uri.port)
       http.use_ssl = true
       request = Net::HTTP::Put.new(uri.request_uri)
+      request.initialize_http_header('Authorization' => "JWT #{jwt}")
       request.body = { fields: { AppConfig.test_env_field_id => field_value } }.to_json
       request.content_type = 'application/json'
       http.request(request)
