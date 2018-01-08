@@ -9,6 +9,7 @@ require 'sinatra'
 require 'uri'
 
 require_relative 'services/github/pull_request_parser'
+require_relative 'services/jira/test_environment_updater'
 
 post '/installed' do
   request.body.rewind
@@ -24,5 +25,8 @@ post '/pull_request_changed' do
   parsed_payload = Github::PullRequestParser
                    .new(github_payload: request_payload)
                    .call
-  parsed_payload.to_json
+  Jira::TestEnvironmentUpdater.new(
+    issue_key: parsed_payload[:issue_key],
+    field_value: parsed_payload[:testing_url_env]
+  ).call
 end
