@@ -22,6 +22,18 @@ module Jira
 
     end
 
+    def build_body(value:)
+      case pr_status
+      when 'opened', 'reopened'
+        value = value.concat("\n#{integration_url}") unless value.include?(integration_url)
+      when 'closed'
+        value.sub!(integration_url, '')
+      when 'merged'
+        value.sub!(integration_url, '')
+        value = value.concat("\n#{staging_url}") unless value.include?(staging_url)
+      end
+
+      { fields: { AppConfig.test_env_field_id => value } }
     end
   end
 end
