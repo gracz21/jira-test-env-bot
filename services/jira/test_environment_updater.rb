@@ -1,3 +1,6 @@
+require_relative 'request/get'
+require_relative 'request/put'
+
 module Jira
   class TestEnvironmentUpdater
     REQUEST_URL_BASE = "#{AppConfig.jira_base}/rest/api/2/issue".freeze
@@ -20,6 +23,13 @@ module Jira
 
     attr_reader :pr_status, :url, :integration_url, :staging_url
 
+    def current_field_value
+      response = Jira::Request::Get.new(url: url).call
+      JSON.parse(response.body)['fields'][AppConfig.test_env_field_id] || ''
+    end
+
+    def update_issue(body:)
+      Jira::Request::Put.new(url: url, body: body).call
     end
 
     def build_body(value:)
