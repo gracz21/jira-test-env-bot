@@ -14,9 +14,9 @@ module Jira
     end
 
     def call
-      url = "#{REQUEST_URL_BASE}/#{issue_key}"
-      jwt = generate_jwt(url: url)
-      update_issue(url: url, jwt: jwt)
+      field_value = current_field_value
+      request_body = build_body(value: field_value)
+      update_issue(body: request_body)
     end
 
     private
