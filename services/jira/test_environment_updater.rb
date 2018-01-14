@@ -3,9 +3,11 @@ module Jira
     REQUEST_URL_BASE = "#{AppConfig.jira_base}/rest/api/2/issue".freeze
     private_constant :REQUEST_URL_BASE
 
-    def initialize(issue_key:, field_value:)
-      @issue_key = issue_key
-      @field_value = field_value
+    def initialize(pr_status:, issue_key:, integration_url:, staging_url:)
+      @pr_status = pr_status
+      @url = "#{REQUEST_URL_BASE}/#{issue_key}"
+      @integration_url = integration_url
+      @staging_url = staging_url
     end
 
     def call
@@ -16,22 +18,10 @@ module Jira
 
     private
 
-    attr_reader :issue_key, :field_value
+    attr_reader :pr_status, :url, :integration_url, :staging_url
 
-    def generate_jwt(url:)
-      claim = Atlassian::Jwt.build_claims(AppConfig.issuer, url, 'put')
-      JWT.encode(claim, AppConfig.shared_secret)
     end
 
-    def update_issue(url:, jwt:)
-      uri = URI(url)
-      http = Net::HTTP.new(uri.host, uri.port)
-      http.use_ssl = true
-      request = Net::HTTP::Put.new(uri.request_uri)
-      request.initialize_http_header('Authorization' => "JWT #{jwt}")
-      request.body = { fields: { AppConfig.test_env_field_id => field_value } }.to_json
-      request.content_type = 'application/json'
-      http.request(request)
     end
   end
 end
