@@ -3,8 +3,8 @@ require_relative 'request/put'
 
 module Jira
   class TestEnvironmentUpdater
-    REQUEST_URL_BASE = "#{AppConfig.jira_base}/rest/api/2/issue".freeze
-    private_constant :REQUEST_URL_BASE
+    REQUEST_API_BASE = 'rest/api/2/issue'.freeze
+    private_constant :REQUEST_API_BASE
 
     def initialize(pr_status:, issue_key:, integration_url:, staging_url:)
       @pr_status = pr_status
