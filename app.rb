@@ -21,6 +21,8 @@ post '/installed' do
   request_payload = JSON.parse(request.body.read)
   Jira::ConfigCreator.new(installation_payload: request_payload).call
 end
+
+post '/uninstalled' do
 end
 
 post '/pull_request_changed' do
