@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180120131424) do
+ActiveRecord::Schema.define(version: 20180120192733) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -21,6 +21,8 @@ ActiveRecord::Schema.define(version: 20180120131424) do
     t.string "test_env_field_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "client_key"
+    t.index ["client_key"], name: "index_jira_configs_on_client_key", unique: true
   end
 
 end
