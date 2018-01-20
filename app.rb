@@ -10,13 +10,17 @@ require 'sinatra'
 require 'sinatra/activerecord'
 require 'uri'
 
+require_relative 'models/jira_config'
+
 require_relative 'services/github/pull_request_parser'
+require_relative 'services/jira/config_creator'
 require_relative 'services/jira/test_environment_updater'
 
 post '/installed' do
   request.body.rewind
   request_payload = JSON.parse(request.body.read)
-  puts request_payload['sharedSecret']
+  Jira::ConfigCreator.new(installation_payload: request_payload).call
+end
 end
 
 post '/pull_request_changed' do
