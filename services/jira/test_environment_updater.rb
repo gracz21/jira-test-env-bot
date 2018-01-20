@@ -15,8 +15,9 @@ module Jira
     end
 
     def call
-      field_value = current_field_value
-      request_body = build_body(value: field_value)
+      field_id = retvie_field_id
+      field_value = current_field_value(field_id: field_id)
+      request_body = build_body(field_id: field_id, value: field_value)
       update_issue(body: request_body)
     end
 
@@ -24,14 +25,20 @@ module Jira
 
     attr_reader :pr_status, :url, :integration_url, :staging_url, :config
 
-    def current_field_value
-      response = Jira::Request::Get.new(url: url).call
-      JSON.parse(response.body)['fields'][AppConfig.test_env_field_id] || ''
+    def retvie_field_id
+      url = "#{config.url}/rest/api/2/field"
+      response = Jira::Request::Get.new(url: url, shared_secret: config.shared_secret).call
+
+      field = JSON.parse(response.body).find { |field| field['name'] == 'Testing Environment' }
+      field['id']
     end
 
+    def current_field_value(field_id:)
+      response = Jira::Request::Get.new(url: url, shared_secret: config.shared_secret).call
+      JSON.parse(response.body)['fields'][field_id] || ''
     end
 
-    def build_body(value:)
+    def build_body(field_id:, value:)
       case pr_status
       when 'opened', 'reopened'
         value = value.concat("\n#{integration_url}") unless value.include?(integration_url)
@@ -42,7 +49,8 @@ module Jira
         value = value.concat("\n#{staging_url}") unless value.include?(staging_url)
       end
 
-      { fields: { AppConfig.test_env_field_id => value } }
+      { fields: { field_id => value } }
+    end
 
     def update_issue(body:)
       Jira::Request::Put.new(url: url, shared_secret: config.shared_secret, body: body).call
