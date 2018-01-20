@@ -1,0 +1,4 @@
+development:
+  adapter: postgresql
+  encoding: unicode
+  database: jira-test-env-bot-development
