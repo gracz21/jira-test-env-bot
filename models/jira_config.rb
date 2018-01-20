@@ -1,3 +1,4 @@
 class JiraConfig < ActiveRecord::Base
-  validates :url, :shared_secret, :test_env_field_id, presence: true
+  validates_presence_of :client_key, :url, :shared_secret
+  validates_uniqueness_of :client_key
 end
