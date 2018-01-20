@@ -1,8 +1,9 @@
 module Jira
   module Request
     class Base
-      def initialize(url:)
+      def initialize(url:, shared_secret:)
         @uri = URI(url)
+        @shared_secret = shared_secret
       end
 
       def call
@@ -13,11 +14,11 @@ module Jira
 
       protected
 
-      attr_reader :uri
+      attr_reader :uri, :shared_secret
 
       def generate_jwt
         claim = Atlassian::Jwt.build_claims(AppConfig.issuer, uri.to_s, self.class::HTTP_METHOD)
-        JWT.encode(claim, AppConfig.shared_secret)
+        JWT.encode(claim, shared_secret)
       end
 
       def make_request(request:)

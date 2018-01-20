@@ -5,8 +5,8 @@ module Jira
     class Put < Base
       HTTP_METHOD = 'put'.freeze
 
-      def initialize(url:, body:)
-        super(url: url)
+      def initialize(url:, shared_secret:, body:)
+        super(url: url, shared_secret: shared_secret)
         @body = body
       end
 
