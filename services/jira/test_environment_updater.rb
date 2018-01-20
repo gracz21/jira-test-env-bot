@@ -28,8 +28,6 @@ module Jira
       JSON.parse(response.body)['fields'][AppConfig.test_env_field_id] || ''
     end
 
-    def update_issue(body:)
-      Jira::Request::Put.new(url: url, body: body).call
     end
 
     def build_body(value:)
@@ -44,6 +42,9 @@ module Jira
       end
 
       { fields: { AppConfig.test_env_field_id => value } }
+
+    def update_issue(body:)
+      Jira::Request::Put.new(url: url, shared_secret: config.shared_secret, body: body).call
     end
   end
 end
