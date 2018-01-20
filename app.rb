@@ -6,6 +6,7 @@ require 'json'
 require 'net/http'
 require 'pry'
 require 'sinatra'
+require 'sinatra/activerecord'
 require 'uri'
 
 require_relative 'services/github/pull_request_parser'
