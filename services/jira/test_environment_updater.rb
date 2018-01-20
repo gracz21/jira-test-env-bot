@@ -7,8 +7,9 @@ module Jira
     private_constant :REQUEST_API_BASE
 
     def initialize(pr_status:, issue_key:, integration_url:, staging_url:)
+      @config = JiraConfig.first
       @pr_status = pr_status
-      @url = "#{REQUEST_URL_BASE}/#{issue_key}"
+      @url = "#{@config.url}/#{REQUEST_API_BASE}/#{issue_key}"
       @integration_url = integration_url
       @staging_url = staging_url
     end
@@ -21,7 +22,7 @@ module Jira
 
     private
 
-    attr_reader :pr_status, :url, :integration_url, :staging_url
+    attr_reader :pr_status, :url, :integration_url, :staging_url, :config
 
     def current_field_value
       response = Jira::Request::Get.new(url: url).call
