@@ -2,9 +2,10 @@
   "key": "jira-test-env-dev",
   "name": "JIRA test environment bot",
   "lifecycle": {
-    "installed": "/installed"
+    "installed": "/installed",
+    "uninstalled": "/uninstalled"
   },
-  "baseUrl": "TBD",
+  "baseUrl": "<%= AppConfig.self_url %>",
   "authentication": {
     "type": "jwt"
   },

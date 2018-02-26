@@ -1,4 +1,5 @@
 ENV['RACK_ENV'] ||= 'development'
+ENV['SELF_URL'] ||= 'https://18cdf642.ngrok.io'
 
 require 'bundler'
 require 'net/http'
@@ -6,11 +7,18 @@ require 'net/http'
 Bundler.require(:default, ENV['RACK_ENV'].to_sym)
 
 set :root, File.dirname(__FILE__)
+set :views, File.join(settings.root, '/app/views')
 require File.join(settings.root, '/config/initializers/autoloader.rb')
 
 before do
+  next unless request.post?
   request.body.rewind
   @request_payload = JSON.parse(request.body.read)
+end
+
+get '/descriptor' do
+  content_type 'application/json'
+  erb :'atlassian_connect.json'
 end
 
 post '/installed' do
