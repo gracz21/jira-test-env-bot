@@ -33,5 +33,7 @@ post '/pull_request_changed' do
   parsed_payload = Github::PullRequestParser
                    .new(github_payload: request_payload)
                    .call
-  Jira::TestEnvironmentUpdater.new(parsed_payload).call
+  results = Jira::TestEnvironmentUpdater.new(parsed_payload).call
+  status results[:code]
+  body results[:body]
 end

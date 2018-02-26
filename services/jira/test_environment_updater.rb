@@ -18,7 +18,8 @@ module Jira
       field_id = retvie_field_id
       field_value = current_field_value(field_id: field_id)
       request_body = build_body(field_id: field_id, value: field_value)
-      update_issue(body: request_body)
+      response = update_issue(body: request_body)
+      { code: response.code, body: response.body }
     end
 
     private
