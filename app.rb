@@ -28,7 +28,7 @@ end
 post '/pull_request_changed' do
   request.body.rewind
   request_payload = JSON.parse(request.body.read)
-  return unless %w[opened reopened closed].include?(request_payload['action'])
+  halt 204 unless %w[opened reopened closed].include?(request_payload['action'])
 
   parsed_payload = Github::PullRequestParser
                    .new(github_payload: request_payload)
