@@ -41,12 +41,12 @@ module Jira
     def build_body(field_id:, value:)
       case pr_status
       when 'opened', 'reopened'
-        value = value.concat("\n#{integration_url}") unless value.include?(integration_url)
+        value += "#{integration_url}\n" unless value.include?(integration_url)
       when 'closed'
-        value.sub!(integration_url, '')
+        value.sub!("#{integration_url}\n", '')
       when 'merged'
-        value.sub!(integration_url, '')
-        value = value.concat("\n#{staging_url}") unless value.include?(staging_url)
+        value.sub!("#{integration_url}\n", '')
+        value += "#{staging_url}\n" unless value.include?(staging_url)
       end
 
       { fields: { field_id => value } }
