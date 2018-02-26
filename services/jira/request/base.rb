@@ -23,7 +23,7 @@ module Jira
 
       def make_request(request:)
         http = Net::HTTP.new(uri.host, uri.port)
-        http.use_ssl = true
+        http.use_ssl = true if uri.scheme == 'https'
 
         http.request(request)
       end
