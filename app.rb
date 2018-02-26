@@ -10,11 +10,8 @@ require 'sinatra'
 require 'sinatra/activerecord'
 require 'uri'
 
-require_relative 'models/jira_config'
-
-require_relative 'services/github/pull_request_parser'
-require_relative 'services/jira/config_creator'
-require_relative 'services/jira/test_environment_updater'
+set :root, File.dirname(__FILE__)
+require File.join(settings.root, '/config/initializers/autoloader.rb')
 
 before do
   request.body.rewind
