@@ -1,14 +1,9 @@
 ENV['RACK_ENV'] ||= 'development'
 
-require 'app_konfig'
-require 'atlassian/jwt'
-require 'json'
+require 'bundler'
 require 'net/http'
-require 'pg'
-require 'pry'
-require 'sinatra'
-require 'sinatra/activerecord'
-require 'uri'
+
+Bundler.require(:default, ENV['RACK_ENV'].to_sym)
 
 set :root, File.dirname(__FILE__)
 require File.join(settings.root, '/config/initializers/autoloader.rb')
