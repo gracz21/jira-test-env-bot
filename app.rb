@@ -18,6 +18,7 @@ post '/installed' do
 end
 
 post '/uninstalled' do
+  JiraConfig.find_by(client_key: @request_payload['clientKey']).destroy
 end
 
 post '/pull_request_changed' do
