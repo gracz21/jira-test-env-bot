@@ -12,7 +12,7 @@ module Jira
     end
 
     def call
-      field_id = retvie_field_id
+      field_id = config.test_env_field_id || retvie_field_id
       field_value = current_field_value(field_id: field_id)
       request_body = build_body(field_id: field_id, value: field_value)
       response = update_issue(body: request_body)
@@ -28,7 +28,9 @@ module Jira
       response = Jira::Request::Get.new(url: url, shared_secret: config.shared_secret).call
 
       field = JSON.parse(response.body).find { |f| f['name'] == AppConfig.field_name }
-      field['id']
+      field_id = field['id']
+      config.update(test_env_field_id: field_id)
+      field_id
     end
 
     def current_field_value(field_id:)
