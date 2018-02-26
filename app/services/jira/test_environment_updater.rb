@@ -1,6 +1,3 @@
-require_relative 'request/get'
-require_relative 'request/put'
-
 module Jira
   class TestEnvironmentUpdater
     REQUEST_API_BASE = 'rest/api/2/issue'.freeze

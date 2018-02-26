@@ -12,8 +12,6 @@ module Jira
 
     attr_reader :installation_payload, :fields_payload
 
-    
-
     def parse_installation_payload
       {
         client_key: installation_payload['baseUrl'],
