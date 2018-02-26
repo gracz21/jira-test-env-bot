@@ -27,7 +27,7 @@ module Jira
       url = "#{config.url}/rest/api/2/field"
       response = Jira::Request::Get.new(url: url, shared_secret: config.shared_secret).call
 
-      field = JSON.parse(response.body).find { |field| field['name'] == 'Testing Environment' }
+      field = JSON.parse(response.body).find { |f| f['name'] == AppConfig.field_name }
       field['id']
     end
 
