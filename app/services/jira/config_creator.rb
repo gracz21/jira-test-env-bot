@@ -10,7 +10,7 @@ module Jira
 
     private
 
-    attr_reader :installation_payload, :fields_payload
+    attr_reader :installation_payload
 
     def parse_installation_payload
       {
