@@ -14,7 +14,7 @@ module Jira
 
     def parse_installation_payload
       {
-        client_key: installation_payload['baseUrl'],
+        client_key: installation_payload['clientKey'],
         url: installation_payload['baseUrl'],
         shared_secret: installation_payload['sharedSecret']
       }
