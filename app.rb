@@ -1,5 +1,4 @@
 ENV['RACK_ENV'] ||= 'development'
-ENV['SELF_URL'] ||= 'https://18cdf642.ngrok.io'
 
 require 'bundler'
 require 'net/http'
