@@ -4,10 +4,6 @@ defaults: &defaults
 
 development:
   <<: *defaults
-  test_env_field_id: customfield_10030
-  jira_base: https://jira-test-env.atlassian.net
 
 production:
   <<: *defaults
-  test_env_field_id: customfield_12301
-  jira_base: https://netguru.atlassian.net
