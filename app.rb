@@ -15,6 +15,10 @@ before do
   @request_payload = JSON.parse(request.body.read)
 end
 
+get '/' do
+  'The bot is running beep boop'
+end
+
 get '/descriptor' do
   content_type 'application/json'
   erb :'atlassian_connect.json'
