@@ -1,3 +1,5 @@
+require_relative 'base'
+
 module Jira
   module Request
     class Put < Base
