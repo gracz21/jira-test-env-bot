@@ -5,7 +5,7 @@
     "installed": "/installed",
     "uninstalled": "/uninstalled"
   },
-  "baseUrl": "<%= AppConfig.self_url %>",
+  "baseUrl": "<%= ENV['SELF_URL'] %>",
   "authentication": {
     "type": "jwt"
   },
