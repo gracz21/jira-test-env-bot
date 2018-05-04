@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180120192733) do
+ActiveRecord::Schema.define(version: 20180504184526) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,4 +25,16 @@ ActiveRecord::Schema.define(version: 20180120192733) do
     t.index ["client_key"], name: "index_jira_configs_on_client_key", unique: true
   end
 
+  create_table "project_configs", force: :cascade do |t|
+    t.string "repo_name"
+    t.string "dynamic_staging_subdomain"
+    t.string "staging_url"
+    t.bigint "jira_config_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["jira_config_id"], name: "index_project_configs_on_jira_config_id"
+    t.index ["repo_name"], name: "index_project_configs_on_repo_name", unique: true
+  end
+
+  add_foreign_key "project_configs", "jira_configs"
 end
