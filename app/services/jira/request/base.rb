@@ -17,7 +17,11 @@ module Jira
       attr_reader :uri, :shared_secret
 
       def generate_jwt
-        claim = Atlassian::Jwt.build_claims(AppConfig.issuer, uri.to_s, self.class::HTTP_METHOD)
+        claim = Atlassian::Jwt.build_claims(
+          AppConfig.issuer,
+          uri.to_s,
+          self.class::HTTP_METHOD
+        )
         JWT.encode(claim, shared_secret)
       end
 
