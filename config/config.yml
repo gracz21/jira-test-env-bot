@@ -1,9 +1,10 @@
 defaults: &defaults
-  issuer: jira-test-env-dev
   field_name: Testing Environment
 
 development:
   <<: *defaults
+  issuer: jira-test-env-dev
 
 production:
   <<: *defaults
+  issuer: jira-test-env
