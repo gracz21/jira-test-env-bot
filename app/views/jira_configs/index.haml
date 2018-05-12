@@ -1,0 +1,19 @@
+- if @jira_configs.present?
+  %br
+  %h1 Registered Jira configurations
+  %br
+  %table.table.table-striped
+    %thead
+      %tr
+        %th Id
+        %th URL
+        %th Created at
+    %tbody
+      - @jira_configs.each do |config|
+        %tr
+          %td=config.id
+          %td
+            %a{ href: config.url }=config.url
+          %td=config.created_at
+- else
+  %h1 No Jira configurations registered currently
