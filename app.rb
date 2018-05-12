@@ -12,10 +12,21 @@ class App < Sinatra::Base
   set :sprockets, Sprockets::Environment.new
   set :views, File.join(root, '/app/views')
 
+  # Include and compress assets
   sprockets.append_path 'app/assets/stylesheets'
   sprockets.append_path 'app/assets/javascripts'
   sprockets.js_compressor  = :uglify
   sprockets.css_compressor = :scss
+
+  # Append bootstrap and popper_js gems JS assets to sprockets
+  sprockets.append_path File.join(
+    Gem::Specification.find_by_name('popper_js').gem_dir, 'assets', 'javascripts'
+  )
+  sprockets.append_path File.join(
+    Gem::Specification.find_by_name('bootstrap').gem_dir, 'assets', 'javascripts'
+  )
+
+  # Serve assets
   get '/app/assets/*' do
     env['PATH_INFO'].sub!('/app/assets', '')
     settings.sprockets.call(env)
