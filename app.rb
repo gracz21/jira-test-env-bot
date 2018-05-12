@@ -9,7 +9,18 @@ class App < Sinatra::Base
   register Sinatra::ActiveRecordExtension
 
   set :root, File.dirname(__FILE__)
+  set :sprockets, Sprockets::Environment.new
   set :views, File.join(root, '/app/views')
+
+  sprockets.append_path 'assets/stylesheets'
+  sprockets.append_path 'assets/javascripts'
+  sprockets.js_compressor  = :uglify
+  sprockets.css_compressor = :scss
+  get '/app/assets/*' do
+    env['PATH_INFO'].sub!('/app/assets', '')
+    settings.sprockets.call(env)
+  end
+
   require File.join(root, '/config/initializers/autoloader.rb')
 
   before do
