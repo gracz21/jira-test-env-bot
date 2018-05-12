@@ -5,6 +5,7 @@ ruby '2.5.1'
 
 gem 'app_konfig'
 gem 'atlassian-jwt', require: 'atlassian/jwt'
+gem 'bootstrap'
 gem 'dotenv', require: 'dotenv/load'
 gem 'haml'
 gem 'json'
