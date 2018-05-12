@@ -12,8 +12,8 @@ class App < Sinatra::Base
   set :sprockets, Sprockets::Environment.new
   set :views, File.join(root, '/app/views')
 
-  sprockets.append_path 'assets/stylesheets'
-  sprockets.append_path 'assets/javascripts'
+  sprockets.append_path 'app/assets/stylesheets'
+  sprockets.append_path 'app/assets/javascripts'
   sprockets.js_compressor  = :uglify
   sprockets.css_compressor = :scss
   get '/app/assets/*' do
