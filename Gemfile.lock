@@ -89,6 +89,7 @@ DEPENDENCIES
   pry
   puma
   rake
+  sass
   sinatra
   sinatra-activerecord
   sprockets

@@ -13,6 +13,7 @@ gem 'pg', '~> 0.18' # Lock because of issue Gem::MissingSpecVersionError: Could 
 gem 'puma'
 gem 'pry'
 gem 'rake'
+gem 'sass'
 gem 'sinatra'
 gem 'sinatra-activerecord', require: 'sinatra/activerecord'
 gem 'sprockets'
