@@ -1,0 +1,36 @@
+- if @project_configs.present?
+  %br
+  .row
+    %h3.col-auto.mr-auto Registered project configurations
+    %a.col-auto.btn.btn-primary{ href: '/project_configs/new', role: 'button' }='Create new config'
+  %br
+  %table.table.table-striped
+    %thead
+      %tr
+        %th Id
+        %th Repo name
+        %th Dynamic staging subdomain
+        %th Staging URL
+        %th Jira URL
+        %th Created at
+        %th Actions
+    %tbody
+      - @project_configs.each do |config|
+        %tr
+          %td=config.id
+          %td=config.repo_name
+          %td=config.dynamic_staging_subdomain || 'N/A'
+          %td
+            %a{ href: config.staging_url }=config.staging_url
+          %td
+            %a{ href: config.jira_config.url }=config.jira_config.url
+          %td=config.created_at
+          %td
+            .row
+              %a.col-auto.mr-auto.btn.btn-secondary{ href: '/project_configs/edit/:id', role: 'button' }='Edit'
+              %form{ onsubmit: "return confirm('Are you sure ?')", action: "/project_configs/#{config.id}", method: 'POST' }
+                %input{ name: '_method', type: 'hidden', value: 'DELETE' }
+                %input.btn.btn-danger{ type: 'submit', value: 'Delete', role: 'button' }
+  = will_paginate @project_configs
+- else
+  %h1 No project configurations registered currently
