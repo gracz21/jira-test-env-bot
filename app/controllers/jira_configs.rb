@@ -1,6 +1,6 @@
 class App
   get '/jira_configs' do
-    @jira_configs = JiraConfig.all
+    @jira_configs = JiraConfig.paginate(page: params[:page])
     haml :'jira_configs/index'
   end
 

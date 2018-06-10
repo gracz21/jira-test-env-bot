@@ -1,6 +1,6 @@
 - if @jira_configs.present?
   %br
-  %h1 Registered Jira configurations
+  %h3 Registered Jira configurations
   %br
   %table.table.table-striped
     %thead
@@ -15,5 +15,7 @@
           %td
             %a{ href: config.url }=config.url
           %td=config.created_at
+
+  = will_paginate @jira_configs
 - else
   %h1 No Jira configurations registered currently
