@@ -9,6 +9,7 @@ class App < Sinatra::Base
   register Sinatra::ActiveRecordExtension
   register WillPaginate::Sinatra
 
+  set :method_override, true
   set :root, File.dirname(__FILE__)
   set :haml, format: :html5, layout: :application
   set :sprockets, Sprockets::Environment.new
