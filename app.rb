@@ -44,7 +44,7 @@ class App < Sinatra::Base
   end
 
   get '/' do
-    'The bot is running beep boop'
+    redirect '/project_configs'
   end
 
   get '/descriptor' do
