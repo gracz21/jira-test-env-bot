@@ -18,3 +18,4 @@ gem 'sinatra'
 gem 'sinatra-activerecord', require: 'sinatra/activerecord'
 gem 'sprockets'
 gem 'uglifier'
+gem "will_paginate", require: %w(will_paginate/active_record will_paginate/view_helpers/sinatra)

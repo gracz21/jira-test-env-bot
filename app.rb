@@ -7,6 +7,7 @@ Bundler.require(:default, ENV['RACK_ENV'].to_sym)
 
 class App < Sinatra::Base
   register Sinatra::ActiveRecordExtension
+  register WillPaginate::Sinatra
 
   set :root, File.dirname(__FILE__)
   set :haml, format: :html5, layout: :application
