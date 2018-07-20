@@ -6,7 +6,8 @@
   %br
   .row
     %h3.col-auto.mr-auto Registered project configurations
-    %a.col-auto.btn.btn-primary{ href: '/project_configs/new', role: 'button' }='Create new config'
+    - if @any_jira_config_exists
+      %a.col-auto.btn.btn-primary{ href: '/project_configs/new', role: 'button' }='Create new config'
   %br
   %table.table.table-striped
     %thead
@@ -37,4 +38,9 @@
                 %input.btn.btn-danger{ type: 'submit', value: 'Delete', role: 'button' }
   = will_paginate @project_configs
 - else
-  %h1 No project configurations registered currently
+  %br
+  .row
+    %h3.col-auto.mr-auto No project configurations registered currently
+    - if @any_jira_config_exists
+      %a.col-auto.btn.btn-primary{ href: '/project_configs/new', role: 'button' }='Create new config'
+  %br
