@@ -1,3 +1,7 @@
+-if flash[:notice].present?
+  .alert.alert-success
+    =flash[:notice]
+
 - if @project_configs.present?
   %br
   .row
