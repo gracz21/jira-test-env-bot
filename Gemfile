@@ -13,6 +13,7 @@ gem 'json'
 gem 'pg', '~> 0.18' # Lock because of issue Gem::MissingSpecVersionError: Could not find 'pg' (~> 0.18) - did find: [pg-1.0.0] during rake db:setup
 gem 'puma'
 gem 'pry'
+gem 'rack-flash3', require: 'rack-flash'
 gem 'rake'
 gem 'sass'
 gem 'sinatra'

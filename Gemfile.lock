@@ -26,6 +26,12 @@ GEM
     coderay (1.1.2)
     concurrent-ruby (1.0.5)
     dotenv (2.4.0)
+    dry-core (0.4.6)
+      concurrent-ruby (~> 1.0)
+    dry-equalizer (0.2.1)
+    dry-monads (0.4.0)
+      dry-core (~> 0.3, >= 0.3.3)
+      dry-equalizer
     execjs (2.7.0)
     ffi (1.9.25)
     haml (5.0.4)
@@ -45,6 +51,8 @@ GEM
       method_source (~> 0.9.0)
     puma (3.11.4)
     rack (2.0.5)
+    rack-flash3 (1.0.5)
+      rack
     rack-protection (2.0.3)
       rack
     rake (12.3.1)
@@ -84,11 +92,13 @@ DEPENDENCIES
   atlassian-jwt
   bootstrap
   dotenv
+  dry-monads
   haml
   json
   pg (~> 0.18)
   pry
   puma
+  rack-flash3
   rake
   sass
   sinatra
