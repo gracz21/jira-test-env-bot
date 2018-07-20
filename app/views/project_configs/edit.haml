@@ -1,0 +1,9 @@
+-if flash[:notice].present?
+  .alert.alert-danger
+    =flash[:notice].join(', ')
+
+%br
+%h3 Edit project configurations
+%br
+
+= haml :'project_configs/_form', layout: false, locals: { method: 'PUT', record: @project_config, jira_configs: @jira_configs }

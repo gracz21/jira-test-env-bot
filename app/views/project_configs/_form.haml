@@ -1,0 +1,17 @@
+%form{ action: "/project_configs/#{record.id}", method: 'POST' }
+  %input{ name: '_method', type: 'hidden', value: method }
+  .form-group
+    %label Repository name*
+    %input.form-control{ type: 'text', name: 'project_config[repo_name]', value: record.repo_name }
+  .form-group
+    %label Dynamic staging subdomain
+    %input.form-control{ type: 'text', name: 'project_config[dynamic_staging_subdomain]', value: record.dynamic_staging_subdomain }
+  .form-group
+    %label Staging URL*
+    %input.form-control{ type: 'text', name: 'project_config[staging_url]', value: record.staging_url }
+  .form-group
+    %label JIRA*
+    %select.form-control{ name: 'project_config[jira_config_id]', value: record.jira_config_id }
+      - jira_configs.each do |jira_config|
+        %option{ value: jira_config.id }=jira_config.url
+  %input.btn.btn-primary{ type: 'submit', value: 'Submit', role: 'button' }
