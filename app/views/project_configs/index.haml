@@ -32,7 +32,7 @@
           %td=config.created_at
           %td
             .row
-              %a.col-auto.mr-auto.btn.btn-secondary{ href: '/project_configs/edit/:id', role: 'button' }='Edit'
+              %a.col-auto.mr-auto.btn.btn-secondary{ href: "/project_configs/edit/#{config.id}", role: 'button' }='Edit'
               %form{ onsubmit: "return confirm('Are you sure ?')", action: "/project_configs/#{config.id}", method: 'POST' }
                 %input{ name: '_method', type: 'hidden', value: 'DELETE' }
                 %input.btn.btn-danger{ type: 'submit', value: 'Delete', role: 'button' }
