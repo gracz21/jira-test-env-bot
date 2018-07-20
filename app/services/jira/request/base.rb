@@ -18,7 +18,7 @@ module Jira
 
       def generate_jwt
         claim = Atlassian::Jwt.build_claims(
-          AppConfig.issuer,
+          ENV['ADDON_KEY'],
           uri.to_s,
           self.class::HTTP_METHOD
         )
