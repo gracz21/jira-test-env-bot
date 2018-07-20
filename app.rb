@@ -37,12 +37,6 @@ class App < Sinatra::Base
 
   require File.join(root, '/config/initializers/autoloader.rb')
 
-  before do
-    next unless request.post?
-    request.body.rewind
-    @request_payload = JSON.parse(request.body.read)
-  end
-
   get '/' do
     redirect '/project_configs'
   end
@@ -53,6 +47,8 @@ class App < Sinatra::Base
   end
 
   post '/pull_request_changed' do
+    request.body.rewind
+    @request_payload = JSON.parse(request.body.read)
     halt 204 unless %w[opened reopened closed].include?(@request_payload['action'])
 
     parsed_payload = Github::PullRequestParser
