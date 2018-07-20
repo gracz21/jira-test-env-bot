@@ -52,8 +52,8 @@ class App < Sinatra::Base
     halt 204 unless %w[opened reopened closed].include?(@request_payload['action'])
 
     parsed_payload = Github::PullRequestParser
-                     .new(github_payload: @request_payload)
-                     .call
+                     .new(payload: @request_payload)
+                     .call.value
     results = Jira::TestEnvironmentUpdater.new(parsed_payload).call
     status results[:code]
     body results[:body]
