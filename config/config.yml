@@ -7,4 +7,4 @@ development:
 
 production:
   <<: *defaults
-  issuer: jira-test-env
+  issuer: jira-test-env-staging
